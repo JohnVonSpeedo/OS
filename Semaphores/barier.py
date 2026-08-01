@@ -6,7 +6,7 @@ n = 5
 count = 0
 
 mutex = threading.Semaphore(1)
-barrier = threading.Semaphore(0)
+turnstile = threading.Semaphore(0)
 
 def worker(worker_id):
     global count
@@ -19,11 +19,11 @@ def worker(worker_id):
     
     if count == n:
         print(f"\nThread {worker_id} is the last thread!\n")
-        barrier.release()
+        turnstile.release()
     mutex.release()
     
-    barrier.acquire()
-    barrier.release()
+    turnstile.acquire()
+    turnstile.release()
     
     print(f"Thread {worker_id} passed into the critical point!")
     
@@ -37,4 +37,4 @@ if __name__ == "__main__":
     for t in threads:
         t.join()
         
-    print(f"\nAll threads passed the barrier!")
+    print(f"\nAll threads passed the turnstile!")

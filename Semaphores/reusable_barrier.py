@@ -6,7 +6,8 @@ n = 5
 count = 0
 
 mutex = threading.Semaphore(1)
-barrier = threading.Semaphore(0)
+turnstile1 = threading.Semaphore(0)
+turnstile2 = threading.Semaphore(1)
 
 def worker(worker_id):
     global count
@@ -14,25 +15,33 @@ def worker(worker_id):
     time.sleep(random.uniform(0.5, 2.0))
     print(f"Worker {worker_id} has complete the randveouz step!")
     
+    #mutual exclusion 1
     mutex.acquire()
     count += 1
     
     if count == n:
         print(f"\nThread {worker_id} is the last thread!\n")
-        barrier.release()
+        turnstile2.acquire()      #locking the second barrier
+        turnstile1.release()      #unlocking the first barrier
     mutex.release()
     
+    #first barrier
+    turnstile1.acquire()
+    turnstile1.release()
     
-    barrier.acquire()
-    barrier.release()
-    
+    #mutual exclusion 2
     mutex.acquire()
     count -= 1
     
     if count == 0:
         print(f"\nThread {worker_id} is the last thread past the barrier!\n")
-        barrier.acquire()
+        turnstile1.acquire()      #locking the first barrier
+        turnstile2.release()      #unlocking the second barrier
     mutex.release()
+    
+    #second barrier
+    turnstile2.acquire()
+    turnstile2.release()
     
     print(f"Thread {worker_id} passed into the critical point!")
     
