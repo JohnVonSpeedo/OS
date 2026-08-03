@@ -5,6 +5,9 @@ import random
 name_buffer = []
 mutex = threading.Semaphore(1)
 items = threading.Semaphore(0)
+
+# Using extra randezvous semaphore so
+# terminal doesn't get scrambled.
 randezvous = threading.Semaphore(0)
 
 def user_input_producer():
