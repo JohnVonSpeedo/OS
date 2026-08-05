@@ -1,0 +1,6 @@
+Task: Write a shell script (command procedure) that receives two parameters
+from the command line upon execution – the names of two existing directories. 
+If the total number of C source files in both directories exceeds 20, the script 
+creates a file in the current directory named sources.txt, containing their names, 
+which must be made read-only for all users. Otherwise, it should output this 
+total number to the standard output with an appropriate message.

@@ -1,0 +1,4 @@
+Write a command procedure (shell script) that receives one parameter from the command line upon execution — a string.
+If a directory with the provided name does not exist in the user's home directory, the procedure creates it.
+It copies to this directory all files from the current directory that are accessible for reading and writing,
+and outputs the number of the remaining files to the standard output.

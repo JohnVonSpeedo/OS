@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+if [ "$#" -ne 2 ]; then
+	echo "Usage: $0 <directory_1> <directory_2>"
+	exit 1
+fi
+
+DIR1="$1"
+DIR2="$2"
+
+if [ ! -d "$DIR1" ] || [ ! -d "$DIR2" ]; then
+	echo "Error: Both parameters must be valid, existing directories!"
+	exit 1
+fi
+
+COUNT=$(find "$DIR1" "$DIR2" -maxdepth 1 -type f -name "*.c" | wc -l)
+
+if [ $COUNT -gt 20 ]; then
+	find "$DIR1" "$DIR2" -maxdepth 1 -type f -name "*.c" > sources.txt
+	chmod 444 sources.txt
+	echo "More than 20 C files found. Created 'sources.txt' and set to read-only!"
+else
+	echo "The total number of C files found: $COUNT"
+fi
