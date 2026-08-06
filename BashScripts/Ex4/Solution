@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+if [ "$#" -ne 1 ]; then
+	echo "Usage: $0 <string>"
+	exit 1
+fi
+
+FILE_NAME="$1"
+
+read -p "Enter a decimal number:" NUM
+
+echo "User ID: $(id -u)" > "$FILE_NAME"
+
+echo "Logged-in users:" >> "$FILE_NAME"
+users >> "$FILE_NAME"
+
+TXT_COUNT=$(find . -maxdepth 1 -type f -name "*.txt" | wc -l)
+
+if [ "$TXT_COUNT" -gt "$NUM" ]; then
+	mkdir -p newdir
+	for TXT_FILE in *.txt; do
+		if [ -f "$TXT_FILE" ]; then
+			CHAR_SIZE=$(cat "$TXT_FILE" | wc -m)
+			echo "File $TXT_FILE | Size: $CHAR_SIZE characters" >> "$FILE_NAME"
+			cp "$TXT_FILE" "newdir/"
+			chmod 666 "newdir/$TXT_FILE"
+		fi
+	done
+	echo "Operation compleded. Files processed and copied to 'newdir'."
+else
+	echo "The number of .txt files ($TXT_COUNT) does not exceed the provided number ($NUM). No files were copied."
+fi

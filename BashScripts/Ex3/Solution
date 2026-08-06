@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+if [ ! $# -eq 2 ]; then
+	echo "Usage: $0 <username> <file_name>"
+	exit 1
+fi
+
+USERNAME="$1"
+FILE_NAME="$2"
+
+if [ ! -f "$FILE_NAME" ] || [ ! -r "$FILE_NAME" ]; then
+	echo "Error: file '$FILE_NAME' does not exist ot cannot be read!"
+	exit 1
+fi
+
+LAST_LINE=$(tail -n 1 "$FILE_NAME")
+EXTRACTED_NAME=$(echo "$LAST_LINE" | cut -d 1 -f 1)
+
+if [ -z "$EXTRACTED_NAME" ]; then
+	echo "Error: The extracted filename is empty."
+	exit 1
+fi
+
+PARENT_HOME=$(dirname "$HOME")
+FILE_COUNT=$(find "$PARENT_HOME" -type f -name "$EXTRACTED_NAME" 2>/dev/null | wc -l)
+
+if [ "$FILE_COUNT" -gt 0 ]; then
+	echo "The total number of files named '$EXTRACTED_NAME' is $FILE_COUNT"
+else
+	MESSAGE="Hello $USERNAME, no files named '$EXTRACTED_NAME' were fouind in $PARENT_HOME or its subdirectories!"
+	echo "$MESSAGE" | write "$USERNAME" 2>/dev/null
+
+	if [ $? -ne 0 ]; then
+		echo "Notice: Tried to message $USERNAME, but they are not currently logged in!"
+	fi
+fi

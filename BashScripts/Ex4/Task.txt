@@ -1,0 +1,8 @@
+Write a bash shell script for Linux
+that receives a string as a parameter from the command line upon execution.
+The procedure reads a decimal number from the standard input.
+It writes into a file, named after the provided string parameter, the identifier of the user who started the session, followed by the accounts of all currently logged-in users.
+In case the total number of files in the current directory whose names have a ".txt" extension exceeds the value of the read number,
+for each of them, the procedure appends its name and its size in characters to the file created above,
+after which it copies its contents into a newly created directory named newdir
+and changes the access permissions of the copy so that it is accessible only for reading and writing by everyone.

@@ -1,0 +1,5 @@
+Write a shell script (command procedure) that takes a username and a filename as parameters from the command line upon execution.
+It takes the text from the last line of the provided file, from the beginning of the line up to the first occurrence of the character '1'.
+It then checks whether there are any files with this extracted name in the file system, starting from the parent directory of the home directory.
+If such files exist, it outputs their count to the screen;
+if not, it sends an appropriate message to the user provided as a parameter.
