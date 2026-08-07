@@ -10,20 +10,20 @@ int main(int argc, char* argv[]) {
 
 	if(argc != 3){
 		fprintf(stderr, "Usage: %s <source_file> <destination_files>\n", argv[0]);
-		return EXIT_FAILURE;
+		exit(1);
 	}
 
 	source_fd = open(argv[1], O_RDONLY);
 	if(source_fd == 1){
 		perror("Error opening source file!");
-		return EXIT_FAILURE;
+		exit(1);
 	}
 
 	dest_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(dest_fd == NULL){
 		perror("Error opening destination file!");
 		close(source_fd);
-		return EXIT_FAILURE;
+		exit(1);
 	}
 
 	while((bytes_read = read(source_fd, buffer, sizeof(buffer))) > 0){
@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
 			perror("Error writing to destination file");
 			close(source_fd);
 			close(dest_fd);
-			return EXIT_FAILURE;
+			exit(1);
 		}
 	}
 
@@ -41,12 +41,12 @@ int main(int argc, char* argv[]) {
 		perror("Error reading from source file!");
 		close(source_fd);
 		close(dest_fd);
-		return EXIT_FAILURE;
+		exit(1);
 	}
 
 	close(source_fd);
 	close(dest_fd);
 
 	printf("File copied successfully!\n");
-	return EXIT_SUCCESS;
+	return 0;
 }

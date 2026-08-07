@@ -1,0 +1,3 @@
+Reads a sequence of characters from standard input.
+Writes them to a file whose name is passed as the first parameter.
+Replaces tab characters with '>>>' and outputs the result to standard error.

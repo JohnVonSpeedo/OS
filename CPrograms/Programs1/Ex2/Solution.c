@@ -6,7 +6,7 @@
 int main(int argc, char* argv[]){
     if(argc != 2){
         fprintf(stderr, "Usage: %s <file_name>", argv[0]);
-        return EXIT_FAILURE;
+        exit(1);
     }
 
     char* FILE_NAME = argv[1];
@@ -15,24 +15,24 @@ int main(int argc, char* argv[]){
     ssize_t bytes_read;
     int fd;
 
-    fd = open(FILE_NAME, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    fd = open(FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if(fd == -1){
         perror("Error opening file for writing!");
-        return EXIT_FAILURE;
+        exit(1);
     }
 
     ssize_t bytes_written = write(fd, data, 25);
     if(bytes_written != 25) {
         perror("Error writing to file!");
         close(fd);
-        return EXIT_FAILURE;
+        exit(1);
     }
     close(fd);
 
     fd = open(FILE_NAME, O_RDONLY);
     if(fd == -1){
         perror("Error opening file for reading!");
-        return EXIT_FAILURE;
+        exit(1);
     }
 
     printf("Reading from file...\n");
@@ -49,10 +49,10 @@ int main(int argc, char* argv[]){
     if(bytes_read == -1){
         perror("Error during read!");
         close(fd);
-        return EXIT_FAILURE;
+        exit(1);
     }
 
     close(fd);
 
-    return EXIT_SUCCESS;
+    return 0;
 }

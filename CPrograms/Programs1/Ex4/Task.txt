@@ -1,0 +1,3 @@
+Reads a sequence of characters from a file whose name is passed as the first parameter.
+Outputs them to standard output.
+Appends the first 3 characters of each line to the end of a file whose name is passed as the second parameter.
