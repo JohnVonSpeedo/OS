@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+if [ "$#" -eq 0 ]; then
+	echo "Usage: $0 <user_id1> [user_id2 ...]"
+	exit 1
+fi
+
+read -p "Enter an existing directory name and a decimal number: " DIR_NAME NUM
+
+if [ ! -d "$DIR_NAME" ]; then
+	echo "Error: Directory '$DIR_NAME' does not exist"
+	exit 1
+fi
+
+UNAMES_FILE="$DIR_NAME/unames"
+CONDITION_MET=false
+
+if [ -f "$UNAMES_FILE" ]; then
+	LINE_COUNT=$(cat "$UNAMES_FILE" | wc -l)
+	if [ "$LINE_COUNT" -le "$NUM" ]; then
+		CONDITION_MET=true
+	fi
+fi
+
+if [ "$CONDITION_MET" = true ]; then
+	ADDED_COUNT=0
+
+	for USER_ID in "$@"; do
+		if ! grep -q "^${USER_ID}$" "$UNAMES_FILE"; then
+			echo "$USER_ID" >> "$UNAMES_FILE"
+			((ADDED_COUNT++))
+		fi
+	done
+
+	echo "The number of added names is: $ADDED_COUNT"
+else
+	> outusers
+
+	LOGGED_IN=$(users | tr ' ' '\n')
+
+	for USER_ID in "$@"; do
+		if ! echo "$LOGGED_IN" | grep -q "^${USER_ID}$"; then
+			echo "$USER_ID" >> outusers
+		fi
+	done
+
+	echo "Condition not met. Created 'outusers' with offline users from the provided list."
+fi

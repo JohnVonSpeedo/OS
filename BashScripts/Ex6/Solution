@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+if [ ! "$#" -eq 12 ]; then
+	echo "Usage: <user_id1> <user_id2> ... <user_id11> <decimal_number>"
+	exit 1
+fi
+
+NUM="${12}"
+
+read -p "Enter the name of an existing directory: " DIR_NAME
+
+if [ ! -d "$DIR_NAME" ]; then
+	echo "Error: Directory '$DIR_NAME' does not exist."
+	exit 1
+fi
+
+SESSIONS_FILE="$DIR_NAME/sessions"
+
+> "$SESSIONS_FILE"
+
+LOGGED_IN=$(users | tr ' ' '\n')
+
+for USER_ID in "${@:1:11}"; do
+	USER_SESSIONS=$(echo "$LOGGED_IN" | grep -c "^${USER_ID}$")
+
+	echo "User $USER_ID has $USER_SESSIONS active session(s)."
+	
+	if [ "$USER_SESSIONS" -gt 2 ]; then
+		echo "$USER_ID" >> "$SESSIONS_FILE"
+	fi
+done
+
+LINE_COUNT=$(cat "$SESSIONS_FILE" | wc -l)
+
+if [ "$NUM" -lt "$LINE_COUNT" ]; then
+	while read -r TARGET_USER; do
+		echo "Cancel 1 session!" | write "$TARGET_uSER" 2>/dev/null
+		if [ $? -ne 0 ]; then
+			echo "Notice: Tried to message $TARGET_USER, but message could not be delivered!"
+		fi
+	done < "$SESSIONS_FILE"
+
+	echo "Alert triggered: Message sent to all users in '$SESSIONS_FILE'"
+fi

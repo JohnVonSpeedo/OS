@@ -1,0 +1,9 @@
+Write a bash shell script for Linux
+that receives a list of system user identifiers as parameters from the command line upon execution.
+The procedure reads the name of an existing directory and a decimal number from the standard input.
+In case a regular file named unames exists in the specified directory and the number of lines in it does not exceed the value of the read number,
+it appends to its content those of the provided identifiers from the list that are not found in the file,
+and outputs the number of added names to the standard output.
+Otherwise, it creates a file named outusers in the current directory,
+writing in it only those identifiers from the list that belong to users not currently working in a session.
+

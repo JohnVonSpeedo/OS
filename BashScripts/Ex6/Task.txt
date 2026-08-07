@@ -1,0 +1,9 @@
+Write a bash command procedure for Linux
+that receives twelve parameters on the command line upon execution -
+the first eleven being identifiers of system users,
+and the last one - a decimal number.
+The procedure reads the name of an existing directory from the standard input.
+For each of the provided identifiers, it calculates and outputs to the standard output the number of sessions started by that user,
+and adds the identifiers of those users who have started more than two sessions into a newly created file named sessions in the aforementioned directory.
+In case the value of the last parameter is less than the total number of lines in the sessions file,
+it sends a message to all users recorded in this file with the text "Cancel 1 session!".
