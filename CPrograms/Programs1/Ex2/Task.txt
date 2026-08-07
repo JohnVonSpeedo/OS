@@ -1,0 +1,1 @@
+Write 25 bytes to a file. Read from it in 10-byte chunks and print what read returns.

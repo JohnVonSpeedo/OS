@@ -1,0 +1,1 @@
+Write a C program that implements the command cp f1 f2.
