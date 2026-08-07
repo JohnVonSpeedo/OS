@@ -4,14 +4,14 @@
 #include <unistd.h>
 
 int main(int argc, char* argv[]){
-    if(argc != 1){
-        fprintf("Usage: %s <file_name>", argv[0]);
+    if(argc != 2){
+        fprintf(stderr, "Usage: %s <file_name>", argv[0]);
         return EXIT_FAILURE;
     }
 
     char* FILE_NAME = argv[1];
     const char* data = "ABCDEFGHIJKLMNOPQRSTUVWXY";
-    char* buffer[10];
+    char buffer[10];
     ssize_t bytes_read;
     int fd;
 
@@ -37,10 +37,10 @@ int main(int argc, char* argv[]){
 
     printf("Reading from file...\n");
 
-    while(true){
+    while(1){
         bytes_read = read(fd, buffer, 10);
 
-        printf("read() returned $zd\n", bytes_read);
+        printf("read() returned %zd\n", bytes_read);
 
         if(bytes_read <= 0)
             break;
