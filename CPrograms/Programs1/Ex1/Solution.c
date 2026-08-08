@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -9,19 +8,22 @@ int main(int argc, char* argv[]) {
 	ssize_t bytes_read, bytes_written;
 
 	if(argc != 3){
-		fprintf(stderr, "Usage: %s <source_file> <destination_files>\n", argv[0]);
+		const char err_msg[] = "Program takes two arguments <source_file> <destination_file>";
+		write(STDERR_FILENO, err_msg, sizeof(err_msg) - 1);
 		exit(1);
 	}
 
 	source_fd = open(argv[1], O_RDONLY);
 	if(source_fd == 1){
-		perror("Error opening source file!");
+		const char err_msg[] = "Error opening source file!";
+		write(STDERR_FILENO, err_msg, sizeof(err_msg) - 1);
 		exit(1);
 	}
 
 	dest_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(dest_fd == NULL){
-		perror("Error opening destination file!");
+		const char err_msg[] = "Error opening destination file!";
+		write(STDERR_FILENO, err_msg, sizeof(err_msg) - 1);
 		close(source_fd);
 		exit(1);
 	}
@@ -30,23 +32,23 @@ int main(int argc, char* argv[]) {
 		bytes_written = write(dest_fd, buffer, bytes_read);
 		
 		if(bytes_written != bytes_read){
-			perror("Error writing to destination file");
-			close(source_fd);
-			close(dest_fd);
+			const char err_msg[] = "Error writing to destination file";
+			write(STDERR_FILENO, err_msg, sizeof(err_msg) - 1);
+			close(source_fd); close(dest_fd);
 			exit(1);
 		}
 	}
 
 	if(bytes_read == -1){
-		perror("Error reading from source file!");
-		close(source_fd);
-		close(dest_fd);
+		const char err_msg[] = "Error reading from source file!";
+		write(STDERR_FILENO, err_msg, sizeof(err_msg) - 1);
+		close(source_fd); close(dest_fd);
 		exit(1);
 	}
 
-	close(source_fd);
-	close(dest_fd);
+	close(source_fd); close(dest_fd);
 
-	printf("File copied successfully!\n");
+	const char msg[] = "File copied successfully!\n";
+	write(STDOUT_FILENO, msg, sizeof(msg) - 1);
 	return 0;
 }
