@@ -1,0 +1,4 @@
+Write a C program
+that prints the PIDs of the parent and child processes.
+Then, use a sufficiently long loop without printing in the child to delay it,
+so that the parent process can finish its execution.

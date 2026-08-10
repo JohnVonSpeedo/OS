@@ -1,0 +1,5 @@
+Write a C program
+that receives a command (an executable file) and a list 
+of parameters for it as a command-line parameter.
+It spawns a child process and replaces its image with the command.
+In the parent, it waits for the child to finish and outputs its PID and the exit code.

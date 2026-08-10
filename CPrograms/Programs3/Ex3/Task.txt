@@ -1,0 +1,4 @@
+Write a C program
+that receives a command as a command-line parameter
+and, upon its successful execution, outputs 
+the name of the command to standard output.
