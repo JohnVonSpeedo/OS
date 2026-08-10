@@ -34,7 +34,7 @@ void write_pid(int pid){
     for(int j = 0; j < i; j++)
         rev[j] = buff[i - 1 - j];
     
-    write(STDERR_FILENO, rev, i);
+    write(STDOUT_FILENO, rev, i);
 }
 
 int main(int argc, char* argv[]){
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]){
     }
 
     if(pid == 0){
-        execlp(argv[1], argv + 1);
+        execvp(argv[1], argv + 1);
         write_err("Error: Failed to execute or command wasn't found!\n");
         exit(1);
     }

@@ -1,0 +1,3 @@
+Write a C program
+that receives 2 commands (without parameters) as command-line parameters.
+The program implements the construct: command1 || command2
