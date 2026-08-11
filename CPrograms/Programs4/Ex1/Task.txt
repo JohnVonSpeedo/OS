@@ -1,0 +1,3 @@
+Write a C program
+that creates a file named "abc" in the current directory and opens it for writing.
+It creates 2 processes that write "hello" to it.

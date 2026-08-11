@@ -1,0 +1,4 @@
+Write a C program
+that receives a filename and a command with options and arguments as parameters.
+Execute a command that prints the lines from the file containing the string "int".
+Execute the provided command with its options and arguments, and print its exit code.

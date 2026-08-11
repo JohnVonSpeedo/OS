@@ -1,0 +1,9 @@
+Write a C program
+that receives two commands (without parameters) and a 
+filename in the current directory as command-line parameters.
+If the file does not exist, it creates it.
+The program executes the commands sequentially, in the order they were provided.
+If the first command completes successfully, the program 
+appends its name to the content of the file provided as a command parameter.
+If the command completes unsuccessfully, the program notifies 
+the user with an appropriate message.

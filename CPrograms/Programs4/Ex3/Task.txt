@@ -1,0 +1,6 @@
+Write a C program
+that executes sequentially the commands provided to it as parameters,
+implementing the following functionality step-by-step:
+main cmd1 ... cmdN Executes each of the commands in a separate child process.
+... while keeping track of the number of executed commands that resulted in an error and 
+the number of those that completed successfully.
