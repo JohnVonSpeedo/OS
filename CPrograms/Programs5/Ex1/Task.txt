@@ -1,0 +1,3 @@
+Write a C program that takes exactly two system commands as arguments 
+and executes them such that the standard output of the first command 
+is piped directly into the standard input of the second command.
