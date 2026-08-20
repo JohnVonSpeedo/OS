@@ -1,0 +1,29 @@
+Write a C program that reads the contents of a file and prints them to the standard output using two child processes communicating via a pipe.
+
+Requirements & Constraints:
+1. Arguments: The program must accept exactly one command-line argument (the name of the file to read). If the incorrect number of arguments is provided, print an error message to STDERR and exit.
+2. System Calls Only: You are not allowed to use standard C library I/O functions (like printf, fopen, or strlen). You must use low-level POSIX system calls (open, read, write, pipe, fork, dup2, close, waitpid).
+3. Custom Print: Implement a custom helper function to calculate string lengths and write error/usage messages to STDERR.
+
+Process Architecture:
+- Parent Process: 
+  * Create a single pipe.
+  * Fork two distinct child processes.
+  * Close all of its own copies of the pipe file descriptors to prevent deadlocks.
+  * Wait for both child processes to finish executing before terminating.
+
+- Child 1 (The Reader): 
+  * Redirect its Standard Input (STDIN) to the read end of the pipe.
+  * Continuously read data from STDIN into a 4096-byte buffer.
+  * Write the read data directly to Standard Output (STDOUT).
+  * Terminate when it receives an EOF from the pipe.
+
+- Child 2 (The Writer):
+  * Open the file provided via the command-line argument in read-only mode.
+  * Redirect its Standard Output (STDOUT) to the write end of the pipe.
+  * Continuously read data from the file into a buffer.
+  * Write the data to STDOUT (which now points to the pipe).
+  * Close the file and terminate when reading is complete.
+
+Error Handling:
+All system calls (open, pipe, fork, dup2, read, write) must have their return values checked. If any system call fails, the program must print an appropriate error message to STDERR and exit with a failure code.
