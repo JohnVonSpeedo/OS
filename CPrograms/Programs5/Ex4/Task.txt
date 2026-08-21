@@ -1,0 +1,4 @@
+Write a C program that takes a single filename as a command-line argument and passes the
+contents of that file through a three-stage process pipeline using anonymous pipes. The
+program should mimic the behavior of a shell pipeline, effectively doing the equivalent of 
+cat <filename> | cat | cat.

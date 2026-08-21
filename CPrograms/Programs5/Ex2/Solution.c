@@ -25,6 +25,7 @@ int main(int argc, char* argv[]){
 
     int pipe2[2];
     if(pipe(pipe2) == -1){
+        close(pipe1[0]); close(pipe1[1]);
         print(STDERR_FILENO, "Error: Failed to create second pipe!\n");
         exit(EXIT_FAILURE);
     }
