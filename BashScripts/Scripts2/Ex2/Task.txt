@@ -1,0 +1,12 @@
+Exercise 2: File System Synchronization
+Write a script that takes exactly two arguments: both are paths to directories (dir1 and dir2).
+
+For every readable regular file directly inside dir1 (do not search subdirectories of 
+dir1), check if a file with the exact same content exists somewhere in dir2 (including 
+all of its subdirectories).
+
+If a match is found, print the path of the file in dir1 and the path of the matching file in 
+dir2.
+
+Hint: You will need to compare file contents rather than just file names. Think about 
+hashing.

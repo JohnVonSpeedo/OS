@@ -1,0 +1,9 @@
+Exercise 1: Process and User Management
+Write a Bash script that takes no arguments. The script should read the system's user list and,
+for every user with a UID greater than or equal to 1000, count the number of currently active 
+processes they have running.
+
+The output should only include users who have at least one active process.
+
+The output must be sorted in descending order by the number of processes and 
+formatted as: username: process_count

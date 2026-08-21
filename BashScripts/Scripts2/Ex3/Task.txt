@@ -1,0 +1,10 @@
+Exercise 3: Log Parsing
+Write a script that takes one optional argument: a directory path. If no directory is provided, 
+default to /var/log.
+
+The script should find all .log files in the given directory and all its subdirectories.
+
+For each log file, count how many times the exact word "ERROR" appears.
+
+Finally, output only the top 3 log files with the highest number of errors in the format: 
+count filepath.

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+awk -F: '$3 >= 1000 {print $1}' /etc/passwd | while read USERNAME
+do COUNT=$(ps -u "$USERNAME" --no-headers 2>/dev/null | wc -l)
+   if [ $COUNT -gt 0 ]
+   then echo "${USERNAME}:${COUNT}"
+   fi
+done | sort -t: -k2 -nr

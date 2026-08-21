@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ "$#" -gt 1 ]
+then echo "Usage: <program> [dir]"
+     exit 1
+fi
+
+DIR=${1:-/var/log}
+
+find "$DIR" -type f -name "*.log" -readable 2>/dev/null | while read FILE
+do COUNT=$(grep -c "ERROR" "$FILE" 2>/dev/null)
+   if [ "$COUNT" -gt 0 ]
+   then echo "$COUNT:$FILE"
+   fi
+done | sort -t: -k1 -nr | head -n 3

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 2 ]
+then echo "Usage: $0 <dir1> <dir2>"
+     exit 1
+fi
+
+DIR1=$1
+DIR2=$2
+
+if [ ! -d "$DIR1" ] || [ ! -d "$DIR2" ]
+then echo "Error: Both arguments must be valid directories."
+     exit 1
+fi
+
+find "$DIR1" -maxdepth 1 -type f -readable 2>/dev/null | while read FILE1
+do HASH1=$(md5sum "$FILE1" | awk '{print $1}')
+   find "$DIR2" -type f -readable 2> /dev/null | while read FILE2
+   do HASH2=$(md5sum "$FILE2" | awk '{print $1}')
+      if [ "$HASH1" = "$HASH2" ]
+      then echo "Match: $FILE1 $FILE2"
+      fi
+   done
+done
